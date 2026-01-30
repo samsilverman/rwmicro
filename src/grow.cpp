@@ -24,12 +24,16 @@ namespace rwmicro {
         }};
 
         std::mt19937 gen(seed);
-        std::uniform_int_distribution<std::size_t> step_distribution(0, steps.size() - 1);
-        std::uniform_int_distribution<> x_distribution(0, static_cast<int>(nx) - 1);
-        std::uniform_int_distribution<> y_distribution(0, static_cast<int>(ny) - 1);
 
-        int i = x_distribution(gen);
-        int j = y_distribution(gen);
+        // std::uniform_int_distribution is not portably defined across compilers.
+        // Use modulo on the standardized mt19937 engine to guarantee 
+        // bit-perfect results across Mac, Windows, and Linux.
+        auto randomInt = [&](std::size_t limit) -> int { 
+            return static_cast<int>(gen() % static_cast<unsigned int>(limit)); 
+        };
+
+        int i = randomInt(nx - 1);
+        int j = randomInt(ny - 1);
 
         std::size_t mass = 0;
 
@@ -39,7 +43,8 @@ namespace rwmicro {
                 mass++;
             }
 
-            const auto &[dx, dy] = steps[step_distribution(gen)];
+            const std::size_t randomIndex = static_cast<std::size_t>(randomInt(steps.size() - 1));
+            const auto &[dx, dy] = steps[randomIndex];
 
             i += dx;
             j += dy;

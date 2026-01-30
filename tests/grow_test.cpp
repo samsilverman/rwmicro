@@ -16,10 +16,10 @@ TEST_CASE("rwmicro: Test grow", "[rwmicro]") {
         std::ostringstream oss;
         oss << grid;
 
-        std::string expected = "0 1 0\n"
-                               "1 1 0\n"
+        std::string expected = "1 0 0\n"
                                "1 1 1\n"
-                               "0 0 0";
+                               "0 0 0\n"
+                               "1 1 0";
 
         REQUIRE(oss.str() == expected);
     }

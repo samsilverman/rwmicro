@@ -36,6 +36,7 @@ TEST_CASE("rwmicro: Test save", "[rwmicro]") {
 
         REQUIRE(contents == expected);
 
+        ifs.close();
         std::filesystem::remove(file);
     }
 
