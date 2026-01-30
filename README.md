@@ -1,10 +1,14 @@
 # rwmicro
 
 [![Report a Bug](https://img.shields.io/static/v1.svg?label=🐛&message=Report%20a%20Bug&color=red)](https://github.com/samsilverman/rwmicro/issues)
-[![Request a Feature](https://img.shields.io/static/v1.svg?label=💡&message=Request%20a%20Feature&color=blue)](https://github.com/samsilverman/rwmicro/issues)
-[![Read the Paper](https://img.shields.io/static/v1.svg?label=DOI&message=10.1145/3745778.3766645&color=brightgreen)](https://doi.org/10.1145/3745778.3766645)
+[![Request a Feature](https://img.shields.io/static/v1.svg?label=💡&message=Request%20a%20Feature&color=orange)](https://github.com/samsilverman/rwmicro/issues)
+[![Read the Paper](https://img.shields.io/static/v1.svg?label=DOI&message=10.1145/3745778.3766645&color=blue)](https://doi.org/10.1145/3745778.3766645)
 
-![Random walk examples](https://github.com/samsilverman/rwmicro/blob/main/assets/teaser.svg)
+[![MacOS Build Status](https://github.com/samsilverman/rwmicro/actions/workflows/macos-build.yml/badge.svg)](https://github.com/samsilverman/rwmicro/actions/workflows/macos-build.yml)
+[![Ubuntu Build Status](https://github.com/samsilverman/rwmicro/actions/workflows/ubuntu-build.yml/badge.svg)](https://github.com/samsilverman/rwmicro/actions/workflows/ubuntu-build.yml)
+[![Windows Build Status](https://github.com/samsilverman/rwmicro/actions/workflows/windows-build.yml/badge.svg)](https://github.com/samsilverman/rwmicro/actions/workflows/windows-build.yml)
+
+![Teaser](https://github.com/samsilverman/rwmicro/blob/main/assets/images/teaser.svg)
 
 `rwmicro` is a lightweight C++ library for generating *random-walk microstructures*—binary patterns created by a periodic random walk.
 
@@ -30,29 +34,12 @@ cmake ..
 make -j8
 ```
 
-There are two options to add `rwmicro` to your project build system:
+The recommended way to use `rwmicro` is to vendor it directly (e.g., as a git submodule) and add it to your build with:
 
-1. `find_package`:
-
-    ```cmake
-    find_package(rwmicro REQUIRED)
-    target_link_libraries(your_target PRIVATE rwmicro)
-    ```
-
-    This requires installing `rwmicro`:
-
-    ```bash
-    cmake --install .
-    ```
-
-2. Vendoring with `add_subdirectory`:
-
-    ```cmake
-    add_subdirectory(/path/to/rwmicro)
-    target_link_libraries(your_target PRIVATE rwmicro)
-    ```
-
-    This builds the library as part of your project—no installation needed.
+```cmake
+add_subdirectory("path/to/monad")
+target_link_libraries(your_target PRIVATE monad)
+```
 
 ### Library Compile Flags
 
@@ -82,13 +69,13 @@ For convenience, a `build.sh` script is included for building with compile flags
 #include <rwmicro/rwmicro.hpp>
 
 int main() {
-    std::size_t nx = 5;
-    std::size_t ny = 5;
-    std::size_t targetMass = 15;
+    const std::size_t nx = 5;
+    const std::size_t ny = 5;
+    const std::size_t targetMass = 15;
 
     rwmicro::Grid grid(nx, ny);
     rwmicro::grow(grid, targetMass);
-    bool valid = rwmicro::validate(grid);
+    const bool valid = rwmicro::validate(grid);
 
     std::cout << "Microstructure:\n" << grid << std::endl;
     std::cout << "Valid: " << valid << std::endl;
@@ -101,7 +88,7 @@ int main() {
 
 ## Documentation
 
-Documentation for all functions is provided through Doxygen-style docstrings. Command-line tools in `apps/` demonstrate complete example workflows.
+Documentation for all functions is provided through Doxygen-style docstrings. [Command-line tools](https://github.com/samsilverman/rwmicro/blob/main/apps/README.md) in `apps/` demonstrate complete example workflows.
 
 ## Applications
 
@@ -110,7 +97,7 @@ Build and run the provided command-line tools:
 ```bash
 mkdir build && cd build
 cmake -DRWMICRO_BUILD_APPS=ON ..
-make -j4
+make -j8
 ./apps/<app_name>
 ```
 
@@ -123,7 +110,7 @@ Build and run the test suite:
 ```bash
 mkdir build && cd build
 cmake -DRWMICRO_BUILD_TESTS=ON ..
-make -j4
+make -j8
 ./tests/rwmicro_tests
 ```
 
