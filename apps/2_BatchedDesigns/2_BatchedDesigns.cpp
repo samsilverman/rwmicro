@@ -40,9 +40,9 @@
 #include <rwmicro/rwmicro.hpp>
 
 static void printProgress(int done, int total) {
-    int barWidth = 50;
-    float ratio = static_cast<float>(done) / static_cast<float>(total);
-    int position = static_cast<int>(static_cast<float>(barWidth) * ratio);
+    const int barWidth = 50;
+    const float ratio = static_cast<float>(done) / static_cast<float>(total);
+    const int position = static_cast<int>(static_cast<float>(barWidth) * ratio);
 
     // Return to start of line
     std::cout << "\r[";
@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
         std::cerr << "2_BatchedDesigns: retries must be nonzero.\n";
     }
 
-    auto folder = std::filesystem::path(__FILE__).parent_path() / "microstructures";
+    const auto folder = std::filesystem::path(__FILE__).parent_path() / "microstructures";
 
     if (std::filesystem::exists(folder)) {
         std::filesystem::remove_all(folder);
@@ -109,8 +109,8 @@ int main(int argc, char *argv[]) {
     std::filesystem::create_directories(folder);
 
     // actual valid mass range
-    std::size_t minMass = nx + ny - 1;
-    std::size_t maxMass = nx * ny;
+    const std::size_t minMass = nx + ny - 1;
+    const std::size_t maxMass = nx * ny;
 
     std::mt19937 genMain(seed);
 
@@ -140,10 +140,10 @@ int main(int argc, char *argv[]) {
         bool success = false;
 
         while (!success) {
-            std::size_t mass = massDistribution(gen);
+            const std::size_t mass = massDistribution(gen);
 
             for (std::size_t attempt = 0; attempt < retries && !success; ++attempt) {
-                unsigned int subseed = gen();
+                const unsigned int subseed = gen();
 
                 grid.clear();
                 rwmicro::grow(grid, mass, subseed);
@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
                     continue;
                 }
 
-                auto key = grid.bitString();
+                const auto key = grid.bitString();
 
                 bool hasNotSeen;
 #ifdef _OPENMP
@@ -171,7 +171,7 @@ int main(int argc, char *argv[]) {
 #endif
         completed += 1;
 
-        auto file = folder / (std::to_string(sample + 1) + ".csv");
+        const auto file = folder / (std::to_string(sample + 1) + ".csv");
         rwmicro::save(grid, file.string());
 
 #ifdef _OPENMP

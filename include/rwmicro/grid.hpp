@@ -79,10 +79,10 @@ namespace rwmicro {
 
     private:
         /// @brief Number of columns.
-        std::size_t nx_;
+        const std::size_t nx_;
 
         /// @brief Number of rows.
-        std::size_t ny_;
+        const std::size_t ny_;
 
         /// @brief Flattened grid data.
         std::vector<std::uint8_t> data_;

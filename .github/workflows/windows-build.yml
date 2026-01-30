@@ -1,0 +1,31 @@
+name: windows-build
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: choco install ninja -y
+
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -DRWMICRO_USE_OPENMP=OFF -DRWMICRO_BUILD_APPS=OFF -DRWMICRO_BUILD_TESTS=ON
+      
+      - name: Build
+        run: |
+          cd build
+          cmake --build . --parallel 8
+
+      - name: Run tests
+        run: .\build\tests\rwmicro_tests.exe

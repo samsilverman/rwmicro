@@ -23,17 +23,17 @@
  *
  * Example:
  *      $ 1_SingleDesign 10 10 30 100 1234
- *      Microstructure (mass=34):
- *      0 0 0 0 0 0 1 1 0 0
- *      0 1 0 0 1 1 1 1 1 0
- *      1 1 0 0 1 0 0 1 1 1
- *      1 1 1 1 1 0 0 1 0 1
- *      0 0 0 1 1 1 1 1 0 0
+ *      Microstructure (mass=31):
+ *      0 0 0 1 1 1 1 0 0 0
  *      0 0 0 0 0 1 1 0 0 0
- *      0 0 0 0 0 0 1 0 0 0
- *      0 0 0 0 0 0 1 0 0 0
- *      0 0 0 0 0 0 1 0 0 0
- *      0 0 0 0 0 0 1 1 0 0
+ *      0 0 0 0 0 1 0 0 0 0
+ *      0 0 0 0 0 1 0 0 0 0
+ *      0 0 0 0 0 1 0 0 0 0
+ *      0 0 0 0 1 1 1 0 0 0
+ *      0 0 0 0 0 1 1 0 0 0
+ *      1 0 0 0 0 1 1 1 1 1
+ *      1 1 0 0 0 1 0 0 0 0
+ *      1 1 1 1 1 1 0 0 0 1
  *      Saved to /path/to/apps/1_SingleDesign/output.csv.
  */
 #include <cstddef>
@@ -83,8 +83,8 @@ int main(int argc, char *argv[]) {
     }
 
     // actual valid mass range
-    std::size_t minMass = nx + ny - 1;
-    std::size_t maxMass = nx * ny;
+    const std::size_t minMass = nx + ny - 1;
+    const std::size_t maxMass = nx * ny;
 
     if (targetMass > maxMass) {
         std::cerr << "1_SingleDesign: targetMass (" << targetMass << ") must not exceed total number of cells (" << maxMass << ").\n";
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::mt19937 gen(seed);
-    std::uniform_int_distribution<std::size_t> massDistribution(minMass, maxMass);
+    const std::uniform_int_distribution<std::size_t> massDistribution(minMass, maxMass);
 
     // ignore targetMass < minMass to save time
     if (targetMass < minMass) {
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
 
     while (!success) {
         for (std::size_t attempt = 0; attempt < retries && !success; ++attempt) {
-            unsigned int subseed = gen();
+            const unsigned int subseed = gen();
 
             grid.clear();
             rwmicro::grow(grid, targetMass, subseed);
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << "Microstructure (mass=" << targetMass << "):\n" << grid << std::endl;
 
-    auto file = std::filesystem::path(__FILE__).parent_path() / "output.csv";
+    const auto file = std::filesystem::path(__FILE__).parent_path() / "output.csv";
 
     rwmicro::save(grid, file.string());
 
