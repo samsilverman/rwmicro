@@ -37,8 +37,8 @@ make -j8
 The recommended way to use `rwmicro` is to vendor it directly (e.g., as a git submodule) and add it to your build with:
 
 ```cmake
-add_subdirectory("path/to/monad")
-target_link_libraries(your_target PRIVATE monad)
+add_subdirectory("path/to/rwmicro")
+target_link_libraries(your_target PRIVATE rwmicro)
 ```
 
 ### Library Compile Flags
