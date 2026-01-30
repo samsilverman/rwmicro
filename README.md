@@ -1,7 +1,7 @@
 # rwmicro
 
 [![Report a Bug](https://img.shields.io/static/v1.svg?label=🐛&message=Report%20a%20Bug&color=red)](https://github.com/samsilverman/rwmicro/issues)
-[![Request a Feature](https://img.shields.io/static/v1.svg?label=💡&message=Request%20a%20Feature&color=orange)](https://github.com/samsilverman/rwmicro/issues)
+[![Request a Feature](https://img.shields.io/static/v1.svg?label=💡&message=Request%20a%20Feature&color=yellow)](https://github.com/samsilverman/rwmicro/issues)
 [![Read the Paper](https://img.shields.io/static/v1.svg?label=DOI&message=10.1145/3745778.3766645&color=blue)](https://doi.org/10.1145/3745778.3766645)
 
 [![MacOS Build Status](https://github.com/samsilverman/rwmicro/actions/workflows/macos-build.yml/badge.svg)](https://github.com/samsilverman/rwmicro/actions/workflows/macos-build.yml)
