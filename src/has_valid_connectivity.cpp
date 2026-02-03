@@ -37,9 +37,11 @@ namespace rwmicro {
         }
 
         // BFS
-        int numVisited = 0;
-
         Grid visited(tiled.nx(), tiled.ny());
+        const auto [i, j] = queue.front();
+        visited(i, j) = 1;
+
+        int numVisited = 1;
 
         const std::array<std::pair<int, int>, 4> steps = {{
             {-1, 0},
@@ -52,17 +54,14 @@ namespace rwmicro {
             auto [i, j] = queue.front();
             queue.pop();
 
-            if (visited(i, j) == 0) {
-                visited(i, j) = 1;
-                numVisited++;
-            }
-
             for (const auto &[di, dj] : steps) {
                 const int iNext = i + di;
                 const int jNext = j + dj;
 
                 if (visited(iNext, jNext) == 0 && tiled(iNext, jNext) == 1) {
                     queue.push({iNext, jNext});
+                    visited(iNext, jNext) = 1;
+                    numVisited++;
                 }
             }
         }
