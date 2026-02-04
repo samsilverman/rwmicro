@@ -124,7 +124,7 @@ Contribution guidelines are provided in [CONTRIBUTING.md](https://github.com/sam
 
 ## Citation
 
-```text
+```bibtex
 @inproceedings{Silverman:2025:RandomWalkMicrostructures,
 author = {Silverman, Samuel and Balter, Dylan and Brown, Keith A. and Whiting, Emily},
 title = {Random-Walk Microstructures for Differentiable Topology Optimization},
