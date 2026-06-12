@@ -12,8 +12,8 @@ CMAP = LinearSegmentedColormap.from_list(
     'custom',
     [
         (0.0, 'white'),
-        (0.5, '#e6d0d1'),
-        (1.0, '#9e5457')
+        (0.5, '#c9e3f6'),
+        (1.0, 'C0')
     ]
 )
 
