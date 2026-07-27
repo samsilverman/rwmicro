@@ -45,10 +45,10 @@ def main() -> None:
             grid = np.loadtxt(fname=directory / folder / f'{j + 1}.csv', delimiter=',')
             plot(ax=axes[j, i], grid=grid)
 
-    path = Path(__file__).parent.resolve() / 'images'/ 'teaser.svg'
+    path = Path(__file__).parent.resolve() / 'images' / 'teaser.svg'
     plt.savefig(path, format='svg', dpi=300)
 
-    path = Path(__file__).parent.resolve() / 'images'/ 'teaser.png'
+    path = Path(__file__).parent.resolve() / 'images' / 'teaser.png'
     plt.savefig(path, format='png', dpi=200) # (6.4, 3.2) * 200 = (1280, 640)
 
     plt.show()
